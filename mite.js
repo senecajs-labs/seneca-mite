@@ -7,6 +7,8 @@ var fs = require( 'fs' )
 module.exports = function( options ) {
   var seneca = this;
 
+  options.key = options.key || '1233212##$#2131'
+
   function loadModules( done ) {
     processInjectedFolders( ['constants', 'controller', 'protocol', 'service'], done )
   }

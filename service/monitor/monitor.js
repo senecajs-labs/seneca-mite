@@ -10,7 +10,6 @@ module.exports = function () {
   }
 
   function set_configuration( args, done ) {
-
     if ( !args.configuration.max_samples || !args.configuration.rate_interval ) {
       return done( null, {ok: false, msg: 'Cannot start monitoring, invalid configuration data'} )
     }
@@ -49,7 +48,9 @@ module.exports = function () {
 
 
   function monitorOS() {
-    seneca.act( "role: 'status', get: 'os'", function ( err, statusData ) {
+    var that = this
+
+    that.act( "role: 'status', get: 'os'", function ( err, statusData ) {
       if ( err ) {
         seneca.log.debug( 'Error receiving os status', err )
         return

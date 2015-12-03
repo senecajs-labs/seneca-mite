@@ -7,9 +7,11 @@ module.exports = function( options ) {
 
 
   function execute_get_status( args, done ) {
-    seneca.log.debug( 'Command get_status', args.command )
+    var that = this
 
-    seneca.act( "role: 'mite', get: 'os_status'", function( err, system ) {
+    that.log.debug( 'Command get_status', args.command )
+
+    that.act( "role: 'mite', get: 'os_status'", function( err, system ) {
       if( err ) {
         return done( err, {ok: false} )
       }
@@ -17,14 +19,14 @@ module.exports = function( options ) {
         os: system
       }
 
-      seneca.act( "role: 'status', get: 'seneca'", function( err, stats ) {
+      that.act( "role: 'status', get: 'seneca'", function( err, stats ) {
         if( err ) {
           return done( err, {ok: false} )
         }
 
         payload.seneca_stats = stats
 
-        seneca.act( "role: 'status', get: 'web'", function( err, webstats ) {
+        that.act( "role: 'status', get: 'web'", function( err, webstats ) {
           if( err ) {
             return done( err, {ok: false} )
           }
@@ -38,7 +40,9 @@ module.exports = function( options ) {
 
 
   function cmd_stats( done ) {
-    seneca.act( 'role:seneca,stats:true', function( err, senstats ) {
+    var that = this
+
+    that.act( 'role:seneca,stats:true', function( err, senstats ) {
       senstats.date = new Date()
       done(err, senstats)
     } )
@@ -46,7 +50,9 @@ module.exports = function( options ) {
 
 
   function cmd_webstats( done ) {
-    seneca.act( 'role:web,stats:true', function( err, webstats ) {
+    var that = this
+
+    that.act( 'role:web,stats:true', function( err, webstats ) {
       webstats.date = new Date()
       done(err, webstats)
     } )

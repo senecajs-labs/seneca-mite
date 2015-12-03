@@ -4,6 +4,8 @@ module.exports = function( options ) {
   var seneca = this;
 
   function generate_response( args, done ) {
+    var that = this
+
     var cmd = args.command
     var error_codes = seneca.export( 'protocol_v1/error_codes' )
 
@@ -28,7 +30,7 @@ module.exports = function( options ) {
       )
     }
 
-    seneca.act( "role: 'mite', get:'auth_token'", function( err, data ) {
+    that.act( "role: 'mite', get:'auth_token'", function( err, data ) {
       if( err ) {
         return done(
           null,
@@ -50,7 +52,7 @@ module.exports = function( options ) {
       }
 
       var token = data.token
-      seneca.act( "role: 'mite', authorize:'command'", cmd, function( err, auth ) {
+      that.act( "role: 'mite', authorize:'command'", cmd, function( err, auth ) {
         if( err || !auth.ok ) {
           return done(
             null,
@@ -72,7 +74,7 @@ module.exports = function( options ) {
         }
 
         // execute command
-        seneca.act(
+        that.act(
           "protocol:1,execute_command:'" + cmd.command.type + "'",
           {
             command: cmd,

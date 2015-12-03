@@ -7,7 +7,9 @@ module.exports = function( options ) {
 
 
   function cmd_webstats( args, done ) {
-    seneca.act( 'role:web,stats:true', function( err, webstats ) {
+    var that = this
+
+    that.act( 'role:web,stats:true', function( err, webstats ) {
       webstats.date = new Date()
       done(err, webstats)
     } )
