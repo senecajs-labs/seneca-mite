@@ -48,9 +48,7 @@ module.exports = function () {
 
 
   function monitorOS() {
-    var that = this
-
-    that.act( "role: 'status', get: 'os'", function ( err, statusData ) {
+    seneca.act( "role: 'status', get: 'os'", function ( err, statusData ) {
       if ( err ) {
         seneca.log.debug( 'Error receiving os status', err )
         return
