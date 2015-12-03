@@ -10,7 +10,6 @@ module.exports = function () {
   }
 
   function set_configuration( args, done ) {
-
     if ( !args.configuration.max_samples || !args.configuration.rate_interval ) {
       return done( null, {ok: false, msg: 'Cannot start monitoring, invalid configuration data'} )
     }

@@ -1,5 +1,5 @@
 {
-  "name": "mite",
+  "name": "seneca-mite",
   "description": "Mite plugin for seneca-sentinel.",
   "version": "0.0.1",
   "keywords": [
@@ -21,23 +21,26 @@
   "files": [
     "LICENSE.txt",
     "README.md",
-    "mite.js"
+    "mite.js",
+    "constants",
+    "controller",
+    "protocol",
+    "service"
   ],
   "dependencies": {
     "async": "^1.4.2",
     "lodash": "^3.10.1",
     "macaddress": "^0.2.8",
     "node-uuid": "^1.4.3",
-    "seneca-crypt": "0.0.1"
+    "seneca-auth": "0.4.0",
+    "seneca-crypt": "~0.0.1",
+    "seneca-user": "0.2.10"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/senecajs/seneca-mite"
   },
   "devDependencies": {
-    "seneca-auth": "git://github.com/rjrodger/seneca-auth#0.5.0",
-    "seneca-local-auth": "0.0.3",
-    "seneca-user": "^0.2.10",
     "assert": "^1.3.0",
     "body-parser": "^1.13.3",
     "cookie-parser": "^1.3.5",

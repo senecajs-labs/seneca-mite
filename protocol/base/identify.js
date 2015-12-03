@@ -8,10 +8,11 @@ module.exports = function( options ) {
   var error_codes = seneca.export( 'protocol_v1/error_codes' )
 
   function execute_identify( args, done ) {
+    var that = this
 
-    seneca.log.debug('Received command identify')
+    that.log.debug('Received command identify')
 
-    seneca.act( "role: 'mite', create:'auth_token'", function( err, data ) {
+    that.act( "role: 'mite', create:'auth_token'", function( err, data ) {
       if( err ) {
         return done( null, {
           authorize: {

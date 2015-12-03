@@ -6,16 +6,18 @@ module.exports = function( options ) {
   var protocol_version = seneca.export( 'constants/protocol_version' )
 
   function identify( args, response ) {
-    seneca.act( "role: 'crypt', decrypt: 'message'", {message: args.command}, function(err, decrypt){
+    var that = this
+
+    that.act( "role: 'crypt', decrypt: 'message'", {message: args.command}, function(err, decrypt){
       var message
       try {
         message = JSON.parse( decrypt.message )
       } catch ( err ) {
-        seneca.log.debug('Cannot parse message', decrypt.message)
+        that.log.debug('Cannot parse message', decrypt.message)
         return response( null, {err: true, msg: 'Received unexpected response: ' + decrypt.message} )
       }
 
-      seneca.act( "role:'protocol', execute_command:'identify'",
+      that.act( "role:'protocol', execute_command:'identify'",
         {
           command: message.command
         },
@@ -23,7 +25,7 @@ module.exports = function( options ) {
           if (err){
             return response(err)
           }
-          seneca.act( "role: 'crypt', encrypt: 'message'", {message: JSON.stringify(data)}, function(err, encrypt){
+          that.act( "role: 'crypt', encrypt: 'message'", {message: JSON.stringify(data)}, function(err, encrypt){
             response(err, {response: encrypt.message})
           })
         }
