@@ -37,11 +37,6 @@ module.exports = function( options ) {
     .add( {role: 'MiteProtocolBase', cmd: 'identify'}, identify )
 
   seneca.act( {role: 'web', use: {
-    name: 'MiteProtocolBase',
-    prefix: '/mite/',
-    pin: {role: 'MiteProtocolBase', cmd: '*'},
-    map: {
-      identify: {POST: true, alias: 'identify'}
-    }
+    identify: {method: 'POST', alias: '/mite/identify', act: {role: 'MiteProtocolBase', cmd: 'identify'}}
   }} )
 }
