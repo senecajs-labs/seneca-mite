@@ -6,19 +6,18 @@ module.exports = function( options ) {
   var protocol_version = seneca.export( 'constants/protocol_version' )
 
   function command( args, response ) {
-    var that = this
     var command = args.command
-    that.act( "role: 'crypt', decrypt: 'message'", {message: command}, function(err, decrypt){
+    this.act( "role: 'crypt', decrypt: 'message'", {message: command}, function(err, decrypt){
 
       var message
       try {
         message = JSON.parse( decrypt.message )
       } catch ( err ) {
-        that.log.debug("Cannot parse message", decrypt.message)
+        this.log.debug("Cannot parse message", decrypt.message)
         return response( null, {err: true, msg: 'Received unexpected response: ' + decrypt.message} )
       }
 
-      that.act( "role:'protocol_v1',generate:'response'",
+      this.act( "role:'protocol_v1',generate:'response'",
         {
           command: message.command
         },
@@ -26,7 +25,7 @@ module.exports = function( options ) {
           if (err){
             return response(err)
           }
-          that.act( "role: 'crypt', encrypt: 'message'", {message: JSON.stringify(data)}, function(err, encrypt){
+          this.act( "role: 'crypt', encrypt: 'message'", {message: JSON.stringify(data)}, function(err, encrypt){
             response(err, {response: encrypt.message})
           })
         }
@@ -39,11 +38,6 @@ module.exports = function( options ) {
     .add( {role: name, cmd: 'command'}, command )
 
   seneca.act( {role: 'web', use: {
-    name: name,
-    prefix: '/mite/',
-    pin: {role: name, cmd: '*'},
-    map: {
-      command: {POST: true, alias: 'v1/command'}
-    }
+    command: {method: 'POST', alias: '/mite/v1/command', act: {role: name, cmd: 'command'}}
   }} )
 }
