@@ -74,3 +74,13 @@ npm test
 ```
 
 
+## Contributing
+
+The [Senecajs org][Seneca.js] encourage open participation. If you feel you can help in any way, be it with documentation, examples, extra testing, or new features please get in touch.
+
+## License
+
+Copyright Seneca Microservices Framework and other contributors 2015 - 2016, Licensed under [MIT][].
+
+[Seneca.js]: https://github.com/senecajs/
+[MIT]: ./LICENSE
