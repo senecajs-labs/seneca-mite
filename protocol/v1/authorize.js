@@ -1,17 +1,17 @@
 "use strict"
 
-var uuid = require( 'node-uuid' )
+var uuid = require( 'uuid' )
 
 module.exports = function( options ) {
   var seneca = this;
   var name = 'protocol_v1'
 
   // this should eventually be moved to another
-  var token = uuid()
+  var token = uuid.v4()
 
 
   function create_auth_token( args, done ) {
-    token = uuid()
+    token = uuid.v4()
 
     done( null, {token: token} )
   }

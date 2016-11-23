@@ -1,7 +1,5 @@
 "use strict"
 
-var uuid = require( 'node-uuid' )
-
 module.exports = function( options ) {
   var seneca = this;
   var protocol_version = seneca.export( 'constants/protocol_version' )

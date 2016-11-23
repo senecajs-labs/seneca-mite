@@ -31,10 +31,10 @@
     "async": "^1.4.2",
     "lodash": "^3.10.1",
     "macaddress": "^0.2.8",
-    "node-uuid": "^1.4.3",
     "seneca-auth": "0.4.0",
     "seneca-crypt": "~0.0.1",
-    "seneca-user": "0.2.10"
+    "seneca-user": "0.2.10",
+    "uuid": "^3.0.0"
   },
   "repository": {
     "type": "git",
